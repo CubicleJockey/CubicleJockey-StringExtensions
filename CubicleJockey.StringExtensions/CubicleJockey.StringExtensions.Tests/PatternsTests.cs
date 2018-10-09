@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace CubicleJockey.StringExtensions.Tests
 {
@@ -37,6 +38,32 @@ namespace CubicleJockey.StringExtensions.Tests
             call.Should()
                 .Throw<ArgumentException>()
                 .WithMessage($"Regex pattern cannot be empty.{Environment.NewLine}Parameter name: pattern");
+        }
+
+        [TestMethod]
+        public void SplitOnCamelCasing()
+        {
+            const string WORDS = "IAmJamesHowlett";
+
+            var words = WORDS.SplitCamelCase().ToArray();
+
+            words.Should().NotBeNullOrEmpty();
+            words.Length.Should().Be(4);
+            words[0].Should().Be("I");
+            words[1].Should().Be("Am");
+            words[2].Should().Be("James");
+            words[3].Should().Be("Howlett");
+        }
+
+        [TestMethod]
+        public void HumanReadableBasedOnCamelCasing()
+        {
+            const string WORDS = "IAmJamesHowlett";
+
+            var humanWorthy = WORDS.CamelCaseToHumanCase();
+
+            humanWorthy.Should().NotBeNullOrWhiteSpace();
+            humanWorthy.Should().Be("I Am James Howlett");
         }
     }
 }
