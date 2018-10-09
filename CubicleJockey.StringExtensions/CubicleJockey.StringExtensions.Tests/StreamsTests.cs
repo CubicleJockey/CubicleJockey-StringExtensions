@@ -22,6 +22,20 @@ namespace CubicleJockey.StringExtensions.Tests
             TestStreamExtension(Encoding.BigEndianUnicode);
         }
 
+        [TestMethod]
+        public void ToMemoryStreamDefaultEncoding()
+        {
+            TestMemoryStreamExtension();
+        }
+
+        [TestMethod]
+        public void ToMemoryStreamNonDefaultEncoding()
+        {
+            TestMemoryStreamExtension(Encoding.Unicode);
+        }
+
+        #region Helper Methods
+
         private static void TestStreamExtension(Encoding encoding = null)
         {
             //Arrange
@@ -44,5 +58,27 @@ namespace CubicleJockey.StringExtensions.Tests
             result.Should().NotBeNullOrWhiteSpace();
             result.Should().Be(WORKSTRING);
         }
+
+        private static void TestMemoryStreamExtension(Encoding encoding = null)
+        {
+            //Arrange
+            const string WORKSTRING = "I am a string to be turned into a memory stream.";
+
+            //Act
+            var memoryStreamInfo = encoding == null ? WORKSTRING.ToMemoryStream() : WORKSTRING.ToMemoryStream(encoding);
+            var expectedEncoding = encoding ?? Encoding.UTF8;
+
+            //Assert
+            memoryStreamInfo.Should().NotBeNull();
+            memoryStreamInfo.Encoding.Should().Be(expectedEncoding);
+            memoryStreamInfo.MemoryStream.Should().NotBeNull();
+
+            var result = expectedEncoding.GetString(memoryStreamInfo.MemoryStream.ToArray());
+
+            result.Should().NotBeNullOrWhiteSpace();
+            result.Should().Be(WORKSTRING);
+        }
+
+        #endregion Helper Methods
     }
 }
