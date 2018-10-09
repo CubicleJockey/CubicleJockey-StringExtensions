@@ -39,5 +39,20 @@ namespace CubicleJockey.StringExtensions
             }
             return items;
         }
+
+        /// <summary>
+        /// Take a string and reverse it.
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <returns>Returns the original string in reverse</returns>
+        public static string Reverse(this string self)
+        {
+            ICollection<char> reversedCharacters = new List<char>();
+            for (var i = self.Length - 1; i >= 0; i--)
+            {
+                reversedCharacters.Add(self[i]);
+            }
+            return string.Join(string.Empty, reversedCharacters);
+        }
     }
 }

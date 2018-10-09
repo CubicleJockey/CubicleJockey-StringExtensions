@@ -53,5 +53,17 @@ namespace CubicleJockey.StringExtensions.Tests
             var digitCount = result.Count(item => item.IsDigit);
             digitCount.Should().Be(4);
         }
+
+        [TestMethod]
+        public void Reverse()
+        {
+            const string WORD = "André";
+
+            var reversedWord = WORD.Reverse();
+
+            reversedWord.Should().NotBeNullOrWhiteSpace();
+            reversedWord.Should().NotBe(WORD);
+            reversedWord.Should().Be("érdnA");
+        }
     }
 }
