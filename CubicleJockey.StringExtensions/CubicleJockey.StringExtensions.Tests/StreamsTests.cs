@@ -8,13 +8,27 @@ namespace CubicleJockey.StringExtensions.Tests
     [TestClass]
     public class StreamsTests
     {
+        private static readonly FileInfo file;
+
+        static StreamsTests()
+        {
+            var fileAndPath = Path.Combine(Directory.GetCurrentDirectory(), "WriteStringToFileTest.txt");
+            file = new FileInfo(fileAndPath);
+
+            DeleteFile();
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            DeleteFile();
+        }
+
         [TestMethod]
         public void ToStreamDefaultEncoding()
         {
             TestStreamExtension();
         }
-
-
 
         [TestMethod]
         public void ToStreamNonDefaultEncoding()
@@ -32,6 +46,40 @@ namespace CubicleJockey.StringExtensions.Tests
         public void ToMemoryStreamNonDefaultEncoding()
         {
             TestMemoryStreamExtension(Encoding.Unicode);
+        }
+
+        [TestMethod]
+        public void WriteStringToFile()
+        {
+            const string TEXT = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit";
+
+            file.Refresh();
+            file.Exists.Should().BeFalse();
+
+            TEXT.ToFile(file.FullName);
+
+            file.Refresh();
+            file.Exists.Should().BeTrue();
+
+            var content = File.ReadAllText(file.FullName);
+            content.Should().Be(TEXT);
+        }
+
+        [TestMethod]
+        public void WriteStringToFileViaFileInfo()
+        {
+            const string TEXT = "Per Aspera Ad Inferi. May all your dreams come true.";
+
+            file.Refresh();
+            file.Exists.Should().BeFalse();
+
+            TEXT.ToFile(file.FullName);
+
+            file.Refresh();
+            file.Exists.Should().BeTrue();
+
+            var content = File.ReadAllText(file.FullName);
+            content.Should().Be(TEXT);
         }
 
         #region Helper Methods
@@ -77,6 +125,15 @@ namespace CubicleJockey.StringExtensions.Tests
 
             result.Should().NotBeNullOrWhiteSpace();
             result.Should().Be(WORKSTRING);
+        }
+
+        private static void DeleteFile()
+        {
+            file.Refresh();
+            if (file.Exists)
+            {
+                file.Delete();
+            }
         }
 
         #endregion Helper Methods

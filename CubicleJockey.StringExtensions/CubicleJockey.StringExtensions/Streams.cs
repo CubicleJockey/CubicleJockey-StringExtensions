@@ -33,5 +33,25 @@ namespace CubicleJockey.StringExtensions
 
             return (memoryStream, streamInfo.Encoding);
         }
+
+        /// <summary>
+        /// Writes the current string contents to a file.
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <param name="file">Full file path and name to create/write to.</param>
+        public static void ToFile(this string self, string file)
+        {
+            File.WriteAllText(file, self);
+        }
+
+        /// <summary>
+        /// Writes the current string content to a file by FileInfo object.
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <param name="file">FileInfo object, uses FileInfo.FullName</param>
+        public static void ToFile(this string self, FileInfo file)
+        {
+            self.ToFile(file.FullName);
+        }
     }
 }
