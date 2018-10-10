@@ -67,10 +67,10 @@ namespace CubicleJockey.StringExtensions
         /// <returns>Original string with appended string collection.</returns>
         public static string Append(this string self, IEnumerable<string> lines, bool asAppendLine = false, bool appendWithWhiteSpace = false)
         {
-            var sb = new StringBuilder();
+            var builder = new StringBuilder();
 
-            if (asAppendLine) { sb.AppendLine(self); }
-            else { sb.Append(self); }
+            if (asAppendLine) { builder.AppendLine(self); }
+            else { builder.Append(self); }
 
             var leadWith = string.Empty;
             if (appendWithWhiteSpace) { leadWith = " "; }
@@ -83,17 +83,17 @@ namespace CubicleJockey.StringExtensions
             {
                 if (asAppendLine && line == lastLine)
                 {
-                    sb.Append(line);
+                    builder.Append(line);
                     continue;
                 }
                 if (asAppendLine)
                 {
-                    sb.AppendLine(line);
+                    builder.AppendLine(line);
                     continue;
                 }
-                sb.Append($"{leadWith}{line}");
+                builder.Append($"{leadWith}{line}");
             }
-            return sb.ToString();
+            return builder.ToString();
         }
     }
 }
