@@ -14,8 +14,10 @@ namespace CubicleJockey.StringExtensions.Tests
         [TestMethod]
         public void IsAPatternMatch()
         {
+            //Arrange
             const string DATE = "2018-07-28";
 
+            //Act/Assert
             DATE.Match(DATE_REGEX).Should().BeTrue();
         }
 
@@ -33,8 +35,10 @@ namespace CubicleJockey.StringExtensions.Tests
         [DataTestMethod]
         public void PatternIsEmpty(string pattern)
         {
+            //Arrange
             Action call = () => "ValueNotImportant".Match(pattern);
 
+            //Act/Assert
             call.Should()
                 .Throw<ArgumentException>()
                 .WithMessage($"Regex pattern cannot be empty.{Environment.NewLine}Parameter name: pattern");
@@ -43,10 +47,13 @@ namespace CubicleJockey.StringExtensions.Tests
         [TestMethod]
         public void SplitOnCamelCasing()
         {
+            //Arrange
             const string WORDS = "IAmJamesHowlett";
 
+            //Act
             var words = WORDS.SplitCamelCase().ToArray();
 
+            //Assert
             words.Should().NotBeNullOrEmpty();
             words.Length.Should().Be(4);
             words[0].Should().Be("I");
@@ -58,10 +65,13 @@ namespace CubicleJockey.StringExtensions.Tests
         [TestMethod]
         public void HumanReadableBasedOnCamelCasing()
         {
+            //Arrange
             const string WORDS = "IAmJamesHowlett";
 
+            //Act
             var humanWorthy = WORDS.CamelCaseToHumanCase();
 
+            //Assert
             humanWorthy.Should().NotBeNullOrWhiteSpace();
             humanWorthy.Should().Be("I Am James Howlett");
         }

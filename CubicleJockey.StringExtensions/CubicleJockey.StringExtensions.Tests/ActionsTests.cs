@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 using static System.Console;
 
@@ -64,6 +65,54 @@ namespace CubicleJockey.StringExtensions.Tests
             reversedWord.Should().NotBeNullOrWhiteSpace();
             reversedWord.Should().NotBe(WORD);
             reversedWord.Should().Be("érdnA");
+        }
+
+        [TestMethod]
+        public void Append()
+        {
+            //Arrange
+            const string ORIGINAL = "Original Line.";
+            IEnumerable<string> lines = new[] { "AppendedItem1", "AppendedItem2" };
+
+            //Act
+            var result = ORIGINAL.Append(lines);
+
+            //Assert
+            result.Should().NotBeNullOrWhiteSpace();
+            result.Should().Be("Original Line.AppendedItem1AppendedItem2");
+        }
+
+        [TestMethod]
+        public void AppendWithSpaces()
+        {
+            //Arrange
+            const string ORIGINAL = "Original Line.";
+            IEnumerable<string> lines = new[] { "AppendedItem1", "AppendedItem2" };
+
+            //Act
+            var result = ORIGINAL.Append(lines, appendWithWhiteSpace: true);
+
+            //Assert
+            result.Should().NotBeNullOrWhiteSpace();
+            result.Should().Be("Original Line. AppendedItem1 AppendedItem2");
+        }
+
+        [TestMethod]
+        public void AppendWithLineReturns()
+        {
+            //Arrange
+            const string ORIGINAL = "Original Line.";
+            IEnumerable<string> lines = new[] { "AppendedLine1", "AppendedLine2" };
+            const string EXPECTED = @"Original Line.
+AppendedLine1
+AppendedLine2";
+
+            //Act
+            var result = ORIGINAL.Append(lines, true);
+
+            //Assert
+            result.Should().NotBeNullOrWhiteSpace();
+            result.Should().Be(EXPECTED);
         }
     }
 }

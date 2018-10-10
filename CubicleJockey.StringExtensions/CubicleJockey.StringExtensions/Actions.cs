@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CubicleJockey.StringExtensions
 {
@@ -53,6 +54,46 @@ namespace CubicleJockey.StringExtensions
                 reversedCharacters.Add(self[i]);
             }
             return string.Join(string.Empty, reversedCharacters);
+        }
+
+
+        /// <summary>
+        /// Takes a collection of strings and appends them to current string. Can be done as a flat string or line appended.
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <param name="lines">Collection of strings to append.</param>
+        /// <param name="asAppendLine">Append strings with line return.</param>
+        /// <param name="appendWithWhiteSpace">Add whitespace when doing just an Append</param>
+        /// <returns>Original string with appended string collection.</returns>
+        public static string Append(this string self, IEnumerable<string> lines, bool asAppendLine = false, bool appendWithWhiteSpace = false)
+        {
+            var sb = new StringBuilder();
+
+            if (asAppendLine) { sb.AppendLine(self); }
+            else { sb.Append(self); }
+
+            var leadWith = string.Empty;
+            if (appendWithWhiteSpace) { leadWith = " "; }
+
+            var theLines = (string[])lines;
+            var lastLine = theLines[theLines.Length - 1];
+
+
+            foreach (var line in theLines)
+            {
+                if (asAppendLine && line == lastLine)
+                {
+                    sb.Append(line);
+                    continue;
+                }
+                if (asAppendLine)
+                {
+                    sb.AppendLine(line);
+                    continue;
+                }
+                sb.Append($"{leadWith}{line}");
+            }
+            return sb.ToString();
         }
     }
 }
