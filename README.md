@@ -7,6 +7,7 @@ I will be adding and updating this into a NuGet package once I get enough of the
 
 ###### Extensions Sections
  * Actions
+ * Encryption
  * Enums
  * Patterns
  * Streams
