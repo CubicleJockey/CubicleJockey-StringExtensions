@@ -97,7 +97,6 @@ namespace CubicleJockey.StringExtensions.Tests
             email.IsEmail().Should().BeTrue();
         }
 
-        [DataRow(default(string))]
         [DataRow("")]
         [DataRow("a")]
         [DataRow("ab")]
