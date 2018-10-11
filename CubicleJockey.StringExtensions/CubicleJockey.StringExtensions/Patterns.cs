@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 
 namespace CubicleJockey.StringExtensions
@@ -47,6 +48,25 @@ namespace CubicleJockey.StringExtensions
             var words = self.SplitCamelCase();
             var humanCased = string.Join(" ", words);
             return humanCased;
+        }
+
+        /// <summary>
+        /// Checks if string is a valid email.
+        /// Rules are based on MailAddress object.
+        /// <remarks>https://docs.microsoft.com/en-us/dotnet/api/system.net.mail.mailaddress?view=netstandard-2.0</remarks>
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <returns>Whether or not a string is a valid email.</returns>
+        public static bool IsEmail(this string self)
+        {
+            var isEmail = true;
+            try
+            {
+                new MailAddress(self);
+            }
+            catch (Exception) { isEmail = false; }
+
+            return isEmail;
         }
     }
 }

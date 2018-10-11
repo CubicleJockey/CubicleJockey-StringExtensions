@@ -32,9 +32,9 @@ namespace CubicleJockey.StringExtensions.Tests
         [TestMethod]
         public void FunctionForEachWithResult()
         {
+            //Arrange
             const string VALUE = "This8Value17MayHave6Digits";
 
-            //Arrange
             (char Character, bool IsDigit) IsDigit(char character)
             {
                 var isDigit = char.IsDigit(character);

@@ -75,5 +75,26 @@ namespace CubicleJockey.StringExtensions.Tests
             humanWorthy.Should().NotBeNullOrWhiteSpace();
             humanWorthy.Should().Be("I Am James Howlett");
         }
+
+
+        [DataRow(default(string))]
+        [DataRow("")]
+        [DataRow("     ")]
+        [DataRow("someemail_hotmail.com")]
+        [DataRow("AlmostAnEmail@")]
+        [DataTestMethod]
+        public void IsEmailInvalid(string email)
+        {
+            email.IsEmail().Should().BeFalse();
+        }
+
+        [DataRow("james.howlett@yopmail.com")]
+        [DataRow("andredavis@yahoo.com")]
+        [DataRow("i_luv_2_swim@comcast.net")]
+        [DataTestMethod]
+        public void IsEmailValid(string email)
+        {
+            email.IsEmail().Should().BeTrue();
+        }
     }
 }
