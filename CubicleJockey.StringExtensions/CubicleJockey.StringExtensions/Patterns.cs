@@ -68,5 +68,39 @@ namespace CubicleJockey.StringExtensions
 
             return isEmail;
         }
+
+        /// <summary>
+        /// Checks if a string meets the minimum length.
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <param name="minimum">Minimum length</param>
+        /// <returns>Whether or not string meets the minimum.</returns>
+        public static bool IsMinLength(this string self, int minimum)
+        {
+            return self.Length >= minimum;
+        }
+
+        /// <summary>
+        /// Checks if a string meets the maximum length.
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <param name="maximum">Maximum length</param>
+        /// <returns>Whether or not string meets the maximum.</returns>
+        public static bool IsMaxLength(this string self, int maximum)
+        {
+            return self.Length <= maximum;
+        }
+
+        /// <summary>
+        /// Checks if a string meets the minimum and maximum length.
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <param name="minimum">Minimum length</param>
+        /// <param name="maximum">Maximum length</param>
+        /// <returns>Whether or not the string meets the minimum and maximum.</returns>
+        public static bool IsLengthBetween(this string self, int minimum, int maximum)
+        {
+            return self.IsMinLength(minimum) && self.IsMaxLength(maximum);
+        }
     }
 }

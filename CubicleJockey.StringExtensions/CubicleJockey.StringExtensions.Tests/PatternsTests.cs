@@ -96,5 +96,64 @@ namespace CubicleJockey.StringExtensions.Tests
         {
             email.IsEmail().Should().BeTrue();
         }
+
+        [DataRow(default(string))]
+        [DataRow("")]
+        [DataRow("a")]
+        [DataRow("ab")]
+        [DataRow("abc")]
+        [DataTestMethod]
+        public void IsMinLengthInvalid(string word)
+        {
+            word.IsMinLength(4).Should().BeFalse();
+        }
+
+        [DataRow("abcd")]
+        [DataRow("abcde")]
+        [DataRow("abcdef")]
+        [DataRow("abcdefg")]
+        [DataRow("abcdefgh")]
+        [DataTestMethod]
+        public void IsMinLengthValid(string word)
+        {
+            word.IsMinLength(4).Should().BeTrue();
+        }
+
+        [DataRow("abcd")]
+        [DataRow("abcde")]
+        [DataRow("abcdef")]
+        [DataRow("abcdefg")]
+        [DataRow("abcdefgh")]
+        [DataTestMethod]
+        public void IsMaxLengthInvalid(string word)
+        {
+            word.IsMaxLength(3).Should().BeFalse();
+        }
+
+        [DataRow("a")]
+        [DataRow("ab")]
+        [DataRow("abc")]
+        [DataTestMethod]
+        public void IsMaxLengthValid(string word)
+        {
+            word.IsMaxLength(3).Should().BeTrue();
+        }
+
+        [DataRow("12")]
+        [DataRow("123456")]
+        [DataTestMethod]
+        public void IsLengthBetweenInvalid(string word)
+        {
+            word.IsLengthBetween(3, 5).Should().BeFalse();
+        }
+
+        [DataRow("123")]
+        [DataRow("1234")]
+        [DataRow("1235")]
+        [DataTestMethod]
+        public void IsLengthBetweenValid(string word)
+        {
+            word.IsLengthBetween(3, 5).Should().BeTrue();
+        }
     }
 }
