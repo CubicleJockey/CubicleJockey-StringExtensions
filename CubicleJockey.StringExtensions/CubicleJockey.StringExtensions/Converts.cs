@@ -23,6 +23,13 @@ namespace CubicleJockey.StringExtensions
             return result;
         }
 
+        /// <summary>
+        /// Convert string to boolean.
+        ///
+        /// Values [True, true, False, false, Yes, yes, No, No, Y, y, N, n, 1, 0]
+        /// </summary>
+        /// <param name="self">A String</param>
+        /// <returns>Returns a boolean if valid.</returns>
         public static bool ToBoolean(this string self)
         {
             const string INVALID = "Invalid Boolean: Accepted Values: [True, true, False, false, Yes, yes, No, no, Y, y, N, n, 1, 0]";
@@ -46,5 +53,14 @@ namespace CubicleJockey.StringExtensions
                     throw new ArgumentException(INVALID);
             }
         }
+
+        #region Unsigned Integers
+
+        //public static ushort ToUnsignedShort(this string self)
+        //{
+        //    Convert.tou
+        //}
+
+        #endregion Unsigned Integers
     }
 }
